@@ -4,39 +4,39 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_participante")
-public class Participante {
+@Table(name = "tb_atividade")
+public class Atividade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String email;
 
-	@ManyToMany
-	@JoinTable(name = "tb_participante_atividade",
-	joinColumns = @JoinColumn(name = "participante_id"), 
-	inverseJoinColumns = @JoinColumn(name = "atividade_id"))
-	private Set<Atividade> atividades = new HashSet<>();
+	@Column(columnDefinition = "TEXT")
+	private String descricao;
+	private Double preco;
 
-	public Participante() {
+	@ManyToMany(mappedBy = "atividades")
+	private Set<Participante> participantes = new HashSet<>();
+
+	public Atividade() {
 
 	}
 
-	public Participante(Long id, String nome, String email) {
+	public Atividade(Long id, String nome, String descricao, Double preco) {
 		this.id = id;
 		this.nome = nome;
-		this.email = email;
+		this.descricao = descricao;
+		this.preco = preco;
 	}
 
 	public Long getId() {
@@ -55,16 +55,24 @@ public class Participante {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Set<Atividade> getAtividades() {
-		return atividades;
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+
+	public Set<Participante> getParticipantes() {
+		return participantes;
 	}
 
 	@Override
@@ -80,13 +88,13 @@ public class Participante {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Participante other = (Participante) obj;
+		Atividade other = (Atividade) obj;
 		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Participante [id=" + id + ", nome=" + nome + ", email=" + email + "]";
+		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco + "]";
 	}
 
 }

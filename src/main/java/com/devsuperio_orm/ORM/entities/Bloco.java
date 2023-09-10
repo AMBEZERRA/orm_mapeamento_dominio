@@ -3,6 +3,7 @@ package com.devsuperio_orm.ORM.entities;
 import java.time.Instant;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +19,9 @@ public class Bloco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant inincio;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant inicio;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant fim;
 
 	@ManyToOne
@@ -29,11 +32,15 @@ public class Bloco {
 
 	}
 
-	public Bloco(Long id, Instant inincio, Instant fim) {
+	
+	public Bloco(Long id, Instant inicio, Instant fim, Atividade atividade) {
 		this.id = id;
-		this.inincio = inincio;
+		this.inicio = inicio;
 		this.fim = fim;
+		this.atividade = atividade;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -43,12 +50,12 @@ public class Bloco {
 		this.id = id;
 	}
 
-	public Instant getInincio() {
-		return inincio;
+	public Instant getInicio() {
+		return inicio;
 	}
 
-	public void setInincio(Instant inincio) {
-		this.inincio = inincio;
+	public void setInicio(Instant inicio) {
+		this.inicio = inicio;
 	}
 
 	public Instant getFim() {
@@ -86,7 +93,7 @@ public class Bloco {
 
 	@Override
 	public String toString() {
-		return "Bloco [id=" + id + ", inincio=" + inincio + ", fim=" + fim + "]";
+		return "Bloco [id=" + id + ", inincio=" + inicio + ", fim=" + fim + "]";
 	}
 
 }

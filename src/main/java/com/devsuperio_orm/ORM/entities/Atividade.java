@@ -44,11 +44,12 @@ public class Atividade {
 
 	}
 
-	public Atividade(Long id, String nome, String descricao, Double preco) {
+	public Atividade(Long id, String nome, String descricao, Double preco, Categoria categoria) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -98,10 +99,6 @@ public class Atividade {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
-	}
-
-	public List<Bloco> getBlocos() {
-		return blocos;
 	}
 
 	@Override
